@@ -1,4 +1,5 @@
 ﻿open System
+open System.Collections
 
 // Learn more about F# at http://fsharp.org
 // See the 'F# Tutorial' project for more help.
@@ -54,13 +55,11 @@ type FibSolver() =
             | 1 | 2 -> n
             | _ -> FibSolver.fib(n-1) + FibSolver.fib(n-2)
     
-let listMatcher(aList:List<String>) =
-     match aList with
-     | [] -> printfn "the list is empty"
-     | [first] -> printfn "the list has one element %A " first
-     | [first; second] -> printfn "list is %A and %A" first second
-     | _ -> printfn "the list has more than two elements"
-  
+let listSorter(aList:List<String>) =
+     printfn "used list: ";
+     printfn "%A" aList;
+     List.sortBy(fun elem -> elem) aList;          
+     
 
 
 [<EntryPoint>]
@@ -69,16 +68,14 @@ let listMatcher(aList:List<String>) =
 // Structures / Modules (Exercise 8 / SW 05) ==> type PhoneBookEntry (1.)
 // Lokale Definitionen und Lexikalisches Scoping (Exercise 2 / SW 07) ==> (2., 3.)
 // Funktionen mit Gedaechtnis (Exercise 7 / SW 07)  ==> (2., 3.)
-// Funktionen hoeherer Ordnung (Exercise 6 / SW 06) ==> (4.)
-// oder
-// Funktionen hoeherer Ordnung (Exercise 6 / SW 08) ==> (4.)
+// Funktionen hoeherer Ordnung (Exercise 8 / SW 06) ==> (4.)
 
 let main argv = 
     Console.WriteLine("Welcome to PCP F# Demo,");
     Console.WriteLine("1. Phone Book Demo (Exercise 7 / SW 07)");
     Console.WriteLine("2. Fibonacci with Akkumulator (Exercise 2 / SW 07)");
     Console.WriteLine("3. Fibonacci without Akkumulator (Excercise 2 / SW 07)");
-    Console.WriteLine("4. Structures / Modules (Exercise 8 / SW 05)");
+    Console.WriteLine("4. Sort List (Exercise 8 / SW 05)");
     match Console.ReadLine() with
     | Int i -> match i with
                | 1 -> findPhoneNumber "Adam" |> ignore
@@ -89,7 +86,9 @@ let main argv =
                       printfn "%i" result
                | 3 -> let result = FibSolver.fib(19);
                       printfn "%i" result
-               | 4 -> listMatcher(["a"; "b"; "c"; "d"])                      
+               | 4 -> let result = listSorter(["b"; "a"; "y"; "x"; "q"; "m"; "c"; "d"]);  
+                      printfn "sorted list: ";
+                      printfn "%A" result
                | _ -> ()
     | _ -> ()
 
