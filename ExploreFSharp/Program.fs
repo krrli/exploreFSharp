@@ -44,7 +44,7 @@ let findPhoneNumber(name:string) =
     let isEquals x (y:PhoneBookEntry) = x = y.Name
     let retval = List.tryFind (isEquals name) PhoneBook
     match retval with
-    | Some v -> printfn "Phonenumer for %s = %i" name v.PhoneNumber
+    | Some v -> printfn "Phonenumber for %s = %i" name v.PhoneNumber
     | None -> printfn "Phonenumber for %s not found!!!!" name
 
 type FibSolver() = 
@@ -81,28 +81,32 @@ let rec main(argv) =
     Console.WriteLine("3. Fibonacci without Akkumulator (Excercise 2 / SW 07)");
     Console.WriteLine("4. Sort List (Exercise 8 / SW 05)");
     Console.WriteLine("q for Quit");
-    match Console.ReadLine() with
+    match Console.ReadKey().KeyChar.ToString()  with
     | Int i -> match i with
-               | 1 -> findPhoneNumber "Adam" |> ignore
+               | 1 -> Console.WriteLine()
+                      findPhoneNumber "Adam" |> ignore
                       findPhoneNumber "Erna" |> ignore
                       addEntry (new PhoneBookEntry("Erna",4715))
                       findPhoneNumber "Erna" |> ignore
                       main(argv)
-               | 2 -> Console.WriteLine("Enter THE number: ");
+               | 2 -> Console.WriteLine()
+                      Console.WriteLine("Enter THE number: ");
                       let sn = Console.ReadLine();
                       match sn with
                       | Long n -> let result = FibSolver.fib_a(n)
                                   printfn "Result: %i" result
                                   main(argv)
                       | _ -> main(argv)
-               | 3 -> Console.WriteLine("Enter THE number: ");
+               | 3 -> Console.WriteLine()
+                      Console.WriteLine("Enter THE number: ");
                       let sn = Console.ReadLine();
                       match sn with
                       | Long n -> let result = FibSolver.fib n
                                   printfn "Result: %i" result
                                   main(argv)
                       | _ -> main(argv)
-               | 4 -> let result = listSorter(["b"; "a"; "y"; "x"; "q"; "m"; "c"; "d"]);  
+               | 4 -> Console.WriteLine()
+                      let result = listSorter(["b"; "a"; "y"; "x"; "q"; "m"; "c"; "d"]);  
                       printfn "sorted list: ";
                       printfn "%A" result
                       main(argv)
