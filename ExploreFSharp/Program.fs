@@ -64,7 +64,15 @@ let listSorter(aList:List<String>) =
      printfn "%A" aList;
      List.sortBy(fun elem -> elem) aList;          
      
-
+let listBubbleSorter (arr:'a[]) = 
+     let arr = arr |> Array.copy
+     let swap i j = let tmp = arr.[i]
+                    arr.[i] <- arr.[j]
+                    arr.[j] <- tmp
+     for i = arr.Length - 1 downto 0 do
+            for j = 1 to i do
+                      if (arr.[j - 1] > arr.[j]) then swap (j-1) j
+     arr
 
 [<EntryPoint>]
 // Contains:
@@ -80,6 +88,7 @@ let rec main(argv) =
     Console.WriteLine("2. Fibonacci with Akkumulator (Exercise 2 / SW 07)");
     Console.WriteLine("3. Fibonacci without Akkumulator (Excercise 2 / SW 07)");
     Console.WriteLine("4. Sort List (Exercise 8 / SW 05)");
+    Console.WriteLine("5. Sort Array with Bubblesort (Exercise 8 / SW 05)");
     Console.WriteLine("q for Quit");
     match Console.ReadKey().KeyChar.ToString()  with
     | Int i -> match i with
@@ -107,6 +116,12 @@ let rec main(argv) =
                       | _ -> main(argv)
                | 4 -> Console.WriteLine()
                       let result = listSorter(["b"; "a"; "y"; "x"; "q"; "m"; "c"; "d"]);  
+                      printfn "sorted list: ";
+                      printfn "%A" result
+                      main(argv)
+               | 5 -> Console.WriteLine()
+                      let arrayToSort = [|"b"; "a"; "y"; "x"; "q"; "m"; "c"; "d" |];
+                      let result = listBubbleSorter(arrayToSort);  
                       printfn "sorted list: ";
                       printfn "%A" result
                       main(argv)
