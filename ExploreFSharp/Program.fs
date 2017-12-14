@@ -60,11 +60,15 @@ type FibSolver() =
             | _ -> FibSolver.fib(n-1L) + FibSolver.fib(n-2L)
     
 let listSorter(aList:List<String>) =
-     printfn "used list: ";
      printfn "%A" aList;
-     List.sortBy(fun elem -> elem) aList;          
+     let res = List.sortBy(fun elem -> elem) aList;  
+     printfn "%A" res;
      
-let listBubbleSorter (arr:'a[]) = 
+let arraySorter(aList:'a[]) = 
+    printfn "%A" aList;
+    Array.sortBy(fun elem -> elem) aList;    
+
+let arrayBubbleSorter (arr:'a[]) = 
      let arr = arr |> Array.copy
      let swap i j = let tmp = arr.[i]
                     arr.[i] <- arr.[j]
@@ -74,6 +78,13 @@ let listBubbleSorter (arr:'a[]) =
                       if (arr.[j - 1] > arr.[j]) then swap (j-1) j
      arr
 
+
+let listBubbleSorter(aList:List<String>)=
+    printfn "%A" aList;
+    let res = aList |> List.toArray |> arrayBubbleSorter |> Array.toList 
+    printfn "%A" res;
+
+    
 [<EntryPoint>]
 // Contains:
 // Bedingte Ausdruecke / Match expressions (Exercise 5 / SW 05) ==> EntryPoint / Unterscheidung Faelle
@@ -83,7 +94,8 @@ let listBubbleSorter (arr:'a[]) =
 // Funktionen hoeherer Ordnung (Exercise 8 / SW 06) ==> (4.)
 
 let rec main(argv) = 
-    Console.WriteLine("\r\nWelcome to PCP F# Demo,");
+    Console.WriteLine("\r\n---------------------------------------------------------");
+    Console.WriteLine("Welcome to PCP F# Demo,");
     Console.WriteLine("1. Phone Book Demo (Exercise 7 / SW 07)");
     Console.WriteLine("2. Fibonacci with Akkumulator (Exercise 2 / SW 07)");
     Console.WriteLine("3. Fibonacci without Akkumulator (Excercise 2 / SW 07)");
@@ -116,14 +128,10 @@ let rec main(argv) =
                       | _ -> main(argv)
                | 4 -> Console.WriteLine()
                       let result = listSorter(["b"; "a"; "y"; "x"; "q"; "m"; "c"; "d"]);  
-                      printfn "sorted list: ";
-                      printfn "%A" result
                       main(argv)
                | 5 -> Console.WriteLine()
-                      let arrayToSort = [|"b"; "a"; "y"; "x"; "q"; "m"; "c"; "d" |];
+                      let arrayToSort = ["b"; "a"; "y"; "x"; "q"; "m"; "c"; "d"];
                       let result = listBubbleSorter(arrayToSort);  
-                      printfn "sorted list: ";
-                      printfn "%A" result
                       main(argv)
                | _ -> main(argv)
     | "Q" | "q" -> 0
