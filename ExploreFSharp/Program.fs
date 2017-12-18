@@ -18,6 +18,7 @@ type PhoneBookEntry(nam:string,nbr:int) =
     let mutable name = nam
     let mutable phonenumber = nbr
 
+    new() = PhoneBookEntry("",0)
     override x.GetHashCode() = 
         hash(name,phonenumber)
 
@@ -25,6 +26,9 @@ type PhoneBookEntry(nam:string,nbr:int) =
         match b with
         | :? PhoneBookEntry as pbe -> (name,phonenumber) = (pbe.Name,pbe.PhoneNumber)
         | _ -> false
+    
+    member this.AddNumber(x) =
+        phonenumber + x
 
     member this.Name
         with get() = name
