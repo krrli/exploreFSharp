@@ -52,11 +52,11 @@ type FibSolver() =
             let a = defaultArg _a 0L
             let b = defaultArg _b 1L
             match n with
-            | 1L | 2L -> a+b
+            | 0L | 1L | 2L -> a+b
             | _ -> FibSolver.fib_a(n-1L,b, a+b)
     static member fib(n:int64) =
             match n with
-            | 1L | 2L -> 1
+            | 0L | 1L | 2L -> 1
             | _ -> FibSolver.fib(n-1L) + FibSolver.fib(n-2L)
     
 let listSorter(aList:List<String>) =
@@ -92,29 +92,29 @@ let rec main(argv) =
     Console.WriteLine("q for Quit");
     match Console.ReadKey().KeyChar.ToString()  with
     | Int i -> match i with
-               | 1 -> Console.WriteLine()
+               | 1 -> printfn "\r\n"
                       findPhoneNumber "Adam" |> ignore
                       findPhoneNumber "Erna" |> ignore
                       addEntry (new PhoneBookEntry("Erna",4715))
                       findPhoneNumber "Erna" |> ignore
                       main(argv)
-               | 2 -> Console.WriteLine()
-                      Console.WriteLine("Enter THE number: ");
+               | 2 -> printfn "\r\n"
+                      printfn "Enter THE number: "
                       let sn = Console.ReadLine();
                       match sn with
                       | Long n -> let result = FibSolver.fib_a(n)
                                   printfn "Result: %i" result
                                   main(argv)
                       | _ -> main(argv)
-               | 3 -> Console.WriteLine()
-                      Console.WriteLine("Enter THE number: ");
+               | 3 -> printfn "\r\n"
+                      printfn "Enter THE number: "
                       let sn = Console.ReadLine();
                       match sn with
                       | Long n -> let result = FibSolver.fib n
                                   printfn "Result: %i" result
                                   main(argv)
                       | _ -> main(argv)
-               | 4 -> Console.WriteLine()
+               | 4 -> printfn "\r\n"
                       let result = listSorter(["b"; "a"; "y"; "x"; "q"; "m"; "c"; "d"]);  
                       printfn "sorted list: ";
                       printfn "%A" result
